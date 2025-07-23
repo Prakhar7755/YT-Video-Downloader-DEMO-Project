@@ -1,0 +1,13 @@
+{
+  "name": "youtube-video",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn --cwd server install && yarn --cwd client install && yarn --cwd client build",
+    "start": "yarn --cwd server start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Demo project for Video download"
+}
