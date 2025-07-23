@@ -1,5 +1,6 @@
 import youtubeDl from "youtube-dl-exec";
 import ffmpeg from "fluent-ffmpeg";
+import ffmpegPath from "ffmpeg-static";
 import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -10,7 +11,7 @@ import { VideoInfoModel } from "../model/videoInfo.model.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 const downloadAndMerge = async (videoUrl) => {
   const id = uuidv4();
