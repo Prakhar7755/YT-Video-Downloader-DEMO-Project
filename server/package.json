@@ -5,8 +5,7 @@
   "private": "true",
   "type": "module",
   "scripts": {
-    "preinstall": "cross-env YOUTUBE_DL_SKIP_PYTHON_CHECK=1",
-    "start": "node app.js",
+    "start": "cross-env YOUTUBE_DL_SKIP_PYTHON_CHECK=1 node app.js",
     "dev": "nodemon app.js"
   },
   "keywords": [],
