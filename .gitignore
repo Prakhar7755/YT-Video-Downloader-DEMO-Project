@@ -24,6 +24,11 @@ dist-ssr
 *.sw?
 
 
+node_modules/
+.vite/
+.vite-temp/
+dist/
+
 # Created by https://www.toptal.com/developers/gitignore/api/node
 # Edit at https://www.toptal.com/developers/gitignore?templates=node
 
