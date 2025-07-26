@@ -4,7 +4,7 @@ import ffmpegPath from "ffmpeg-static";
 import fs from "fs";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import { v4 as uuidv4 } from "uuid";
+import { randomUUID } from "crypto";
 
 import { VideoInfoModel } from "../model/videoInfo.model.js";
 
@@ -13,79 +13,31 @@ const __dirname = dirname(__filename);
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
-// const downloadAndMerge = async (videoUrl) => {
-//   const id = uuidv4();
-
-//   const videoOutput = path.join(__dirname, `video_${id}.mp4`);
-//   const audioOutput = path.join(__dirname, `audio_${id}.mp4`);
-//   const finalOutput = path.join(__dirname, `merged_${id}.mp4`);
-
-//   try {
-//     console.log("Downloading video...");
-//     await youtubeDl(videoUrl, {
-//       output: videoOutput,
-//       format: "bv[ext=mp4]",
-//       quiet: true,
-//     });
-
-//     console.log("Downloading audio...");
-//     await youtubeDl(videoUrl, {
-//       output: audioOutput,
-//       format: "ba[ext=m4a]",
-//       quiet: true,
-//     });
-
-//     console.log("Merging...");
-//     await new Promise((resolve, reject) => {
-//       ffmpeg()
-//         .input(videoOutput)
-//         .input(audioOutput)
-//         .outputOptions("-c copy")
-//         .save(finalOutput)
-//         .on("end", () => {
-//           fs.unlinkSync(videoOutput);
-//           fs.unlinkSync(audioOutput);
-//           console.log("Merged successfully!");
-//           resolve();
-//         })
-//         .on("error", reject);
-//     });
-
-//     return finalOutput;
-//   } catch (err) {
-//     console.error(err);
-//     throw err;
-//   } finally {
-//   }
-// };
-
 const downloadAndMerge = async (videoUrl) => {
-  const id = uuidv4();
+  const id = randomUUID();
 
   const videoOutput = path.join(__dirname, `video_${id}.mp4`);
   const audioOutput = path.join(__dirname, `audio_${id}.mp4`);
   const finalOutput = path.join(__dirname, `merged_${id}.mp4`);
 
-  console.log("Using ffmpeg at:", ffmpegPath);
-
   try {
-    console.log("Downloading video to:", videoOutput);
-    const videoResult = await youtubeDl(videoUrl, {
+    console.log("Downloading Video..");
+
+    await youtubeDl(videoUrl, {
       output: videoOutput,
       format: "bv[ext=mp4]",
       quiet: true,
     });
-    console.log("Video downloaded:", videoResult);
 
-    console.log("Downloading audio to:", audioOutput);
-    const audioResult = await youtubeDl(videoUrl, {
+    console.log("Downloading Audio...");
+
+    await youtubeDl(videoUrl, {
       output: audioOutput,
       format: "ba[ext=m4a]",
       quiet: true,
     });
-    console.log("Audio downloaded:", audioResult);
 
-    console.log("Merging video and audio...");
+    console.log("Merging Audio and Video...");
 
     await new Promise((resolve, reject) => {
       ffmpeg()
@@ -94,7 +46,6 @@ const downloadAndMerge = async (videoUrl) => {
         .outputOptions("-c copy")
         .save(finalOutput)
         .on("end", () => {
-          console.log("Merge complete:", finalOutput);
           try {
             fs.unlinkSync(videoOutput);
             fs.unlinkSync(audioOutput);
@@ -119,8 +70,7 @@ const downloadAndMerge = async (videoUrl) => {
 
 export const download = async (req, res) => {
   const { url, name } = req.body;
-  console.log("Received download request:", { url, name });
-  
+
   if (!url || !name)
     return res.status(400).send("URL and name both are required");
 

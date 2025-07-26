@@ -13,7 +13,7 @@ import videoRouter from "./src/routes/videoInfo.route.js";
 import errorHandler from "./src/middleware/errorHandler.js";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Get directory name from ES module context
 const __filename = fileURLToPath(import.meta.url);
@@ -33,7 +33,7 @@ app.use(helmet());
 // ---------------------------
 const allowedOrigins = [
   "http://localhost:5173",
-  "http://localhost:5000",
+  "http://localhost:5001",
   process.env.CORS_ORIGIN,
 ].filter(Boolean);
 
