@@ -1,0 +1,34 @@
+# Node modules (we'll install inside container)
+**/node_modules
+**/yarn.lock
+**/package-lock.json
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Git folder
+.git
+.gitignore
+
+# Client and server source (optional, if not needed for build)
+# But usually you want to copy source for build, so omit these unless using multi-stage builds
+
+# Build output (to avoid copying local builds if you do fresh builds in container)
+client/dist
+server/dist
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode settings
+.vscode
