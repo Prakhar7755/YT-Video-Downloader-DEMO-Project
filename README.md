@@ -39,14 +39,14 @@ youtube-video-downloader/
 │   └── vite.config.js
 │
 ├── server/              # Express backend
+│   ├── app.js           # Express app config (CORS, static serve, API mount)
+│   |__ server.js        # Server bootstrap
 |   |__ src/
 │      ├── config/          # DB & env configs
 │      ├── controllers/     # Business logic (downloads, merges)
 │      ├── middleware/      # Error handling, CORS, helmet
 │      ├── model/           # Mongoose schemas
 │      ├── routes/          # API routes (video download, health checks)
-│      ├── app.js           # Express app config (CORS, static serve, API mount)
-│      └── server.js        # Server bootstrap
 │
 ├── Dockerfile           # Multi-stage Docker setup (client + server)
 ├── package.json         # Root scripts for build/start
